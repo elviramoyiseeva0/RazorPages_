@@ -1,0 +1,49 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model RazorPages.Pages.IndexModel
+@{
+    ViewData["Title"] = "List of Tasks";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div>
+        <label>Name</label>
+        <br /><input asp-for="TodoItem.Name" />
+    </div>
+    <div>
+        <label>Status</label>
+        <br /><input asp-for="TodoItem.IsCompleted" type="checkbox" />
+    </div>
+    <input type="submit" value="Send" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr><th>Status</th><th>Name</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TodoItems)
+        {
+            <tr>
+                <td>
+                    <form method="post">
+                        <button type="submit" asp-page-handler="toggle" asp-route-id="@item.Id">
+                            @(item.IsCompleted ? "Completed" : "Not completed")
+                        </button>
+                    </form>
+                </td>
+                <td>@item.Name</td>
+                <td>
+                    <form method="post">
+                        <a asp-page="/Todo/Edit" asp-route-id="@item.Id">Update</a>
+                        <button type="submit" asp-page-handler="delete" asp-route-id="@item.Id">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

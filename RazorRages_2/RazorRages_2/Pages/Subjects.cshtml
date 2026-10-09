@@ -1,0 +1,40 @@
+﻿@page
+@model RazorRages_2.Pages.SubjectsModel
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+<h2>Enter data about subjects:</h2>
+
+<form method="post">
+    <p>
+        Subject 1 Title:<br />
+        <input name="subjects[0].title" /><br />
+        Subject 1 Hours:<br />
+        <input type="number" name="subjects[0].hours" />
+    </p>
+    <p>
+        Subject 2 Title:<br />
+        <input name="subjects[1].title" /><br />
+        Subject 2 Hours:<br />
+        <input type="number" name="subjects[1].hours" />
+    </p>
+    <p>
+        Subject 3 Title:<br />
+        <input name="subjects[2].title" /><br />
+        Subject 3 Hours:<br />
+        <input type="number" name="subjects[2].hours" />
+    </p>
+    <input type="submit" value="Submit" />
+</form>
+
+@if (Model.IsSubmitted)
+{
+    <h3>Received list of subjects:</h3>
+    <ul>
+        @foreach (var subject in Model.Subjects)
+        {
+            <li>@subject.Title (@subject.Hours hours)</li>
+        }
+    </ul>
+}

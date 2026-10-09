@@ -1,0 +1,28 @@
+﻿@page "{id:int}"
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model RazorPages.Pages.Todo.EditModel
+@{
+    ViewData["Title"] = "Editing a task";
+}
+<h2>@ViewData["Title"]</h2>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="TodoItem.Id" type="hidden" />
+    <div>
+        <label>Name</label>
+        <div>
+            <input asp-for="TodoItem.Name" />
+            <span asp-validation-for="TodoItem.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Status</label>
+        <div>
+            <input asp-for="TodoItem.IsCompleted" type="checkbox" />
+            <span asp-validation-for="TodoItem.IsCompleted"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>

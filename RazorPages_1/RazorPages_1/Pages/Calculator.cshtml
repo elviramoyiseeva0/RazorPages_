@@ -1,0 +1,68 @@
+﻿@page
+@{
+    ViewData["Title"] = "Calculator";
+}
+
+<h2>Calculator</h2>
+
+@if (!string.IsNullOrEmpty(Result))
+{
+    <h3>Result: @Result</h3>
+}
+
+<form method="post">
+    <p>
+        <label>First number:</label><br />
+        <input type="number" step="any" name="num1" required />
+    </p>
+    <p>
+        <label>Operation:</label><br />
+        <select name="operation">
+            <option value="add">+</option>
+            <option value="subtract">-</option>
+            <option value="multiply">*</option>
+            <option value="divide">/</option>
+        </select>
+    </p>
+    <p>
+        <label>Second number:</label><br />
+        <input type="number" step="any" name="num2" required />
+    </p>
+    <input type="submit" value="Calculate" />
+</form>
+
+@functions {
+    public string Result { get; set; } = "";
+
+    public void OnPost(double? num1, double? num2, string operation)
+    {
+        if (num1 == null || num2 == null)
+        {
+            Result = "Enter both numbers";
+            return;
+        }
+
+        switch (operation)
+        {
+            case "add":
+                Result = $"{num1} + {num2} = {num1 + num2}";
+                break;
+            case "subtract":
+                Result = $"{num1} - {num2} = {num1 - num2}";
+                break;
+            case "multiply":
+                Result = $"{num1} * {num2} = {num1 * num2}";
+                break;
+            case "divide":
+                if (num2 == 0)
+                {
+                    Result = "Error: Division by zero!";
+                }
+                else
+                {
+                    Result = $"{num1} / {num2} = {num1 / num2}";
+                }
+                break;
+        }
+    }
+}
